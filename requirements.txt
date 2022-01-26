@@ -1,0 +1,6 @@
+numpy
+pytesseract
+matplotlib
+pandas
+flask
+flask-cors
