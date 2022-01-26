@@ -3,4 +3,5 @@ pytesseract
 matplotlib
 pandas
 flask
-flask-cors
+flask_cors
+opencv-python

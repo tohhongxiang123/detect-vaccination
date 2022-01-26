@@ -6,6 +6,8 @@ import os
 import re
 import math
 
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
 def levenshtein(s, t):
     """ 
         Calculates levenshtein distance between two strings.
@@ -36,12 +38,11 @@ def levenshtein(s, t):
 
     return distance[len(s)][len(t)]
 
-def get_location_from_image(img, default_tesseract_cmd_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'):
+def get_location_from_image(img):
     """
     img: image of tracetogether screenshot
     default_tesseract_cmd_path: Path of executable for tesseract
     """
-    pytesseract.pytesseract.tesseract_cmd = default_tesseract_cmd_path
 
     data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DATAFRAME)
     data = data.dropna()
@@ -77,7 +78,7 @@ def get_location_from_image(img, default_tesseract_cmd_path = r'C:\Program Files
         
     return text_lines[index_of_location].strip()
 
-def get_bounding_box_of_text(img, text, default_tesseract_cmd_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'):
+def get_bounding_box_of_text(img, text):
     """
     Gets the bounding box coordinates of the location on the phone
 
@@ -86,7 +87,6 @@ def get_bounding_box_of_text(img, text, default_tesseract_cmd_path = r'C:\Progra
 
     Returns (x_coordinate, y_coordinate, width_of_bounding_box, height_of_bounding_box)
     """
-    pytesseract.pytesseract.tesseract_cmd = default_tesseract_cmd_path
     img_height, img_width = img.shape[:2]
 
     data = pytesseract.image_to_data(img, output_type=pytesseract.Output.DATAFRAME)
